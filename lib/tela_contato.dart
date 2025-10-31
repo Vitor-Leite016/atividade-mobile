@@ -38,7 +38,26 @@ class TelaContatoState extends State<TelaContato> {
                   )
                 ],
               ),
-              
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Text("Email: atedimento@novaroma.edu.br"),
+                  ),
+                   Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Text("Telefone: (81) xxxx-xxxx"),
+                  ),
+                     Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Text("Celular: 9xxxx-xxxx")
+                  )
+             
+             
+                ],
+              )
               // Implementar os dados de contato
               
             ],

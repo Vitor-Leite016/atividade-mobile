@@ -10,26 +10,50 @@ class Bitcoin extends StatefulWidget {
 }
 
 class BitcoinState extends State<Bitcoin> {
+  
 
   String _preco = "0";
 
   void _recuperarPreco() async {
-
-    // "https://blockchain.info/ticker";
-    var url = Uri.https("blockchain.info", "ticker");
-    // Implementar o método de requisição
-    http.Response response = await http.get(url);
-    // Implementar converter o retorno para JSON
-    Map<String, dynamic> retorno = json.decode( response.body );
-
     setState(() {
-      // Implementar a lógica para atualizar o preço
-      // do Bitcoin em Reais
-      // O preço do Bitcoin em Reais está na chave "BRL"
-      // e o valor do preço está na chave "buy"
-      _preco = "Implementar o preço do Bitcoin em Reais";
+      _preco = "Carregando...";
     });
 
+    try {
+      // Construção da URL para a API do Bitcoin
+      var url = Uri.https("blockchain.info", "/ticker");
+
+      // Requisição HTTP GET para a API
+      http.Response response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        // Conversão do retorno para JSON
+        Map<String, dynamic> retorno = json.decode(response.body);
+
+        if (retorno.containsKey("BRL")) {
+          // Extração dos valores de "buy" e "symbol"
+          String buy = retorno["BRL"]["buy"].toString();
+          String symbol = retorno["BRL"]["symbol"];
+
+          setState(() {
+            // Atualização do preço do Bitcoin em Reais
+            _preco = "$symbol ${double.parse(buy).toStringAsFixed(2)}";
+          });
+        } else {
+          setState(() {
+            _preco = "Dados não encontrados para BRL";
+          });
+        }
+      } else {
+        setState(() {
+          _preco = "Erro na requisição: ${response.statusCode}";
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _preco = "Erro ao recuperar dados: $e";
+      });
+    }
   }
 
   @override
@@ -55,6 +79,13 @@ class BitcoinState extends State<Bitcoin> {
                   style: TextStyle(
                     fontSize: 35
                   ),
+                ),
+              ),
+              Text(
+                _preco,
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               ElevatedButton(

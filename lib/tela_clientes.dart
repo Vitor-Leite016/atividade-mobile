@@ -43,6 +43,31 @@ class TelaClienteState extends State<TelaCliente> {
               Center(
                 child: Column(
                   children: <Widget>[
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                      children:<Widget>[
+                        Column(
+                          children: <Widget>[
+                          Icon(MdiIcons.facebook, color: Colors.blue, size: 60),
+                          Text("Facebook")
+                          ],
+                        ),
+                        SizedBox(width: 50),
+                        Column(
+                          children: <Widget>[
+                          Icon(MdiIcons.whatsapp, color: Colors.green, size: 60),
+                          Text("Whatsapp")
+                          ],
+                        ),
+                        SizedBox(width: 50),
+                        Column(
+                          children: <Widget>[
+                          Icon(MdiIcons.google, color: Colors.red, size: 60),
+                          Text("Google")
+                          ],
+                        )
+                      ]
+                    )
                     
                     // Implementar a lista de clientes
 
